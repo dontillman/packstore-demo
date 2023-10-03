@@ -8,8 +8,7 @@ import { OrderSection } from './order';
 
 function App() {
     const orderFormRef = useRef();
-    const [ , refresh] = useReducer((s, a) => s + 1);
-
+    
     const handleOrderChange = o => {
         jsonPost('api/getorder', {order: o})
             .then(resp => orderFormRef.current.setOrderData(resp));
@@ -25,8 +24,7 @@ function App() {
                    Welcome to the Pack Store
                </Title>
                
-               <OrderSelector onChange={handleOrderChange}
-                              onNewOrder={refresh} />
+               <OrderSelector onChange={handleOrderChange} />
 
                <OrderSection ref={orderFormRef}
                              onChange={handleChange} />
@@ -49,17 +47,16 @@ const Title = styled.div`
 `;
 
 const OrderSelector = props => {
-    const {onChange, onNewOrder} = props;
+    const {onChange} = props;
     const [orders, setOrders] = useState(null);
-    const selectRef = useRef();
 
     const handleChange = e => 
           onChange(parseInt(e.target.value));
 
     const handleClick = () => 
           jsonPost('api/neworder')
-          .then(resp => onNewOrder(resp.order));
-    
+          .then(resp => jsonPost('api/orders'))
+          .then(resp => setOrders(resp.orders));
 
     if (!orders) {
         jsonPost('api/orders')
@@ -71,8 +68,7 @@ const OrderSelector = props => {
     return <OrderSelectDiv>
                <p>
                    Select an Order:
-                   <select onChange={handleChange}
-                           ref={selectRef} >
+                   <select onChange={handleChange} >
                        <option disabled={true}
                                selected={true} >
                            Select an order
