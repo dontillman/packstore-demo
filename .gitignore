@@ -1,0 +1,13 @@
+.DS_Store
+*~
+packstorebackend/pyvenv.cfg
+packstorebackend/bin/
+packstorebackend/lib/
+packstorebackend/src/packstoresite/packstoreapp/migrations/
+packstorebackend/src/packstoresite/packstoreapp/static/js/
+packstorebackend/src/packstoresite/static/
+*.pyc
+*.sqlite3
+manage.py
+
+packstorenotes
