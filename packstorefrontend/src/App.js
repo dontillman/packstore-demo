@@ -1,11 +1,11 @@
 // Copyright 2023, J. Donald Tillman, all rights reserved.
 
-import React, { useRef, useReducer, useState } from 'react';
-import styled from 'styled-components';
+import React, { useRef, useState } from 'react';
+import styles from './styles-packstore.css';
 import { jsonPost } from './utils';
 import { OrderSection } from './order';
 
-
+// Pack Store App
 function App() {
     const orderFormRef = useRef();
     
@@ -19,32 +19,17 @@ function App() {
             .then(resp => orderFormRef.current.setOrderData(resp));
     };
 
-    return <AppDiv className="App">
-               <Title>
+    return <div className="packstore-app">
+               <div className="title">
                    Welcome to the Pack Store
-               </Title>
+               </div>
                
                <OrderSelector onChange={handleOrderChange} />
 
                <OrderSection ref={orderFormRef}
                              onChange={handleChange} />
-           </AppDiv>;
+           </div>;
 }
-
-const AppDiv = styled.div`
-  width: 600px;
-  padding: 20px;
-  border: solid 1px olive;
-  border-radius: 3px;
-  margin-left: 20px;
-  font-family: helvetica;
-  font-size: 14px;
-`;
-
-const Title = styled.div`
-  text-align: center;
-  font-size: 110%;
-`;
 
 const OrderSelector = props => {
     const {onChange} = props;
@@ -65,7 +50,7 @@ const OrderSelector = props => {
                    Initializing...
                </div>;
     }
-    return <OrderSelectDiv>
+    return <div className="order-select">
                <p>
                    Select an Order:
                    <select onChange={handleChange} >
@@ -86,16 +71,7 @@ const OrderSelector = props => {
                        Add order
                    </button>
                </p>
-           </OrderSelectDiv>;
+           </div>;
 };
-
-const OrderSelectDiv = styled.div`
-  width: 400px;
-  padding: 10px;
-  border: solid 1px lightgray;
-  border-radius: 3px;
-  margin: 20px 0;
-`;
-
 
 export default App;

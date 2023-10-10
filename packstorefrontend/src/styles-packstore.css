@@ -1,0 +1,31 @@
+/* styles for the packstore app */
+
+div.packstore-app {
+  width: 600px;
+  padding: 20px;
+  border: solid 1px olive;
+  border-radius: 3px;
+  margin-left: 20px;
+  font-family: helvetica;
+  font-size: 14px;
+}
+
+div.title {
+  text-align: center;
+  font-size: 110%;
+}
+
+div.order-select {
+  width: 400px;
+  padding: 10px;
+  border: solid 1px lightgray;
+  border-radius: 3px;
+  margin: 20px 0;
+}
+
+SELECT, BUTTON {
+    margin-left: 10px;
+}
+
+
+

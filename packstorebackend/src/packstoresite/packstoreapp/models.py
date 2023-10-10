@@ -10,7 +10,7 @@ MODELS = [{'name': 'MegapackXL',  'size': [40, 10], 'energy': 4.0e6, 'cost': 120
           {'name': 'Megapack2',   'size': [30, 10], 'energy': 3.0e6, 'cost': 80_000,  'release': 2021},
           {'name': 'Megapack',    'size': [30, 10], 'energy': 2.0e6, 'cost': 50_000,  'release': 2005},
           {'name': 'PowerPack',   'size': [10, 10], 'energy': 1.0e6, 'cost': 10_000,  'release': 2000},
-          {'name': 'Transformer', 'size': [10, 10], 'energy': -.5e6, 'cost': 10_000}]
+          {'name': 'Transformer', 'size': [10, 10], 'energy':     0, 'cost': 10_000}]
 
 
 # Orders are numbered, incrementing from 0 (or whatever you'd like)

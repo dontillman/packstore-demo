@@ -1,6 +1,6 @@
 // Copyright 2023, J. Donald Tillman, all rights reserved.
 
-import styled from 'styled-components';
+import styles from './styles-utils.css';
 import React, { useState } from 'react';
 
 
@@ -24,10 +24,12 @@ const getCookie = key => {
 }
 
 
+// Format a price in USD.
 const prettyPrice = price =>
       price.toLocaleString('en-US', {style: 'currency', currency: 'USD'});
 
 
+// Format energy in MWhrs.
 const prettyEnergy = energy =>
       `${(energy / 1e6).toFixed(1)} MWhrs`;
 
@@ -46,16 +48,11 @@ const InputQuantity = props => {
         setValid(isValid);
     };
 
-    return <ValidInput value = {value}
-                       valid={valid}
-                       onChange={handleChange} />
+    return <input className="quantity"
+                  value = {value}
+                  valid={valid}
+                  onChange={handleChange}
+                  style={{color: valid ? 'black' : 'red'}} />
 };
-
-const ValidInput = styled.input`
-  text-align: right;
-  width: 40px;
-  color: ${props => props.valid ? 'black' : 'red'};
-  margin: 0 5px;
-`;
 
 export {jsonPost, prettyPrice, prettyEnergy, InputQuantity};

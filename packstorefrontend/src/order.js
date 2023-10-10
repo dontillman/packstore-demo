@@ -4,7 +4,7 @@
 // Which includes the table, handling quantities, the summary information, and the layout.
 
 import React, { useState, forwardRef, useImperativeHandle } from 'react';
-import styled from 'styled-components';
+import styles from './styles-order.css';
 import { prettyEnergy, prettyPrice, InputQuantity } from './utils';
 
 // Displays everything about the current order.
@@ -21,7 +21,7 @@ const OrderSection = forwardRef((props, ref) => {
                         }),
                         []);
 
-    return <OrderSectionDiv>
+    return <div className="order-section">
                {(0 < entries.length) &&
                 <>
                     <OrderForm orderData={orderData}
@@ -30,17 +30,8 @@ const OrderSection = forwardRef((props, ref) => {
                     <Layout entries={entries} />
                 </>
                }
-           </OrderSectionDiv>;    
+           </div>;
 })
-
-const OrderSectionDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  border: solid 1px olive;
-  border-radius: 3px;
-`;
-
 
 const OrderForm = props => {
     const {orderData, onChange} = props;
@@ -54,26 +45,26 @@ const OrderForm = props => {
                             key={i} />);
     }
     return <div>
-               <OrderFormDiv>
-                   <OrderFormHeading>
-                       <ColQuant>
+               <div className="order-form">
+                   <div className="order-form-heading">
+                       <div className="col-quant">
                            Quantity
-                       </ColQuant>
-                       <ColModel>
+                       </div>
+                       <div className="col-model">
                            Model
-                       </ColModel>
-                       <ColEnergy>
+                       </div>
+                       <div className="col-energy">
                            Energy
-                       </ColEnergy>
-                       <ColPrice>
+                       </div>
+                       <div className="col-price">
                            Price
-                       </ColPrice>
-                       <ColExt>
+                       </div>
+                       <div className="col-price">
                            Extension
-                       </ColExt>
-                   </OrderFormHeading>
+                       </div>
+                   </div>
                    {content}
-               </OrderFormDiv>
+               </div>
            </div>;
 };
 
@@ -85,60 +76,13 @@ const OrderInfo = props => {
                    Recommended number of transformers: {orderdata.transformers}<br />
                    Total energy: {prettyEnergy(orderdata.energy)}<br />
                    Total area: {orderdata.area} ft^2<br />
-                   Energy density: {orderdata.density.toFixed()} MWhrs/ft^2
+                   Energy density: {orderdata.density.toFixed()} MWhrs/ft^2<br />
                    Total price: {prettyPrice(orderdata.price)}
                </div>;
     } else {
         return <div />
     }
 };
-
-const OrderFormDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-family: helvetica;
-  font-size: 12px;
-`;
-
-const OrderFormHeading = styled.div`
-  display: flex;
-  font-weight: bold;
-  color: #666666;
-  text-align: center;
-  border-bottom: solid 1px gray;
-  margin: 20px;
-`;
-
-const tablemargin = '0 5px';
-
-const ColQuant = styled.div`
-  width: 40px;
-  margin: ${tablemargin}
-`;
-
-const ColModel = styled.div`
-  width: 150px;
-  margin: ${tablemargin}
-`;
-
-const ColEnergy = styled.div`
-  width: 100px;
-  margin: ${tablemargin}
-`;
-
-const ColPrice = styled.div`
-  width: 100px;
-  margin: ${tablemargin}
-`;
-
-const ColExt = styled.div`
-  border: 1 px gray;
-  width: 100px;
-  margin: ${tablemargin}
-`;
-    
-
-
 
 const OrderFormEntry = props => {
     const {entry, onChange} = props;
@@ -148,77 +92,28 @@ const OrderFormEntry = props => {
         onChange(order, name, q);
     };
 
-    return <OrderEntryDiv>
+    return <div className="order-entry">
                <InputQuantity value={quantity}
                               onChange={handleChange}/>
-               <ModelSize model={name}
-                          size={size} />
-               <Energy energy={energy || '' } />
-               <Price price={cost} />
-               <Price price={extended} />
-           </OrderEntryDiv>;
+               <div className="model-size">
+                   <div className="model">
+                       {name}
+                   </div>
+                   <div className="size">
+                       {size[0]} ft x {size[1]} ft
+                   </div>
+               </div>
+               <div className="energy">
+                   {(energy) ? prettyEnergy(energy) : ''}
+               </div>
+               <div className="price">
+                   {prettyPrice(cost)}
+               </div>
+               <div className="price">
+                   {prettyPrice(extended)}
+               </div>
+           </div>;
 };
-
-const OrderEntryDiv = styled.div`
-  display: flex;
-  align-items: flex-start;
-  margin: 5px 0;
-`;
-
-// Pretty block with the model name in bold
-// and the size below
-const ModelSize = props => {
-    const {model, size} = props;
-    return <ModelSizeDiv>
-               <ModelDiv>
-                   {model}
-               </ModelDiv>
-               <SizeDiv>
-                   {size[0]} ft x {size[1]} ft
-               </SizeDiv>
-           </ModelSizeDiv>;
-};
-
-const ModelSizeDiv = styled(ColModel)`
-  display: flex;
-  flex-direction: column;
-  margin-left: 30px;
-`;
-  
-const ModelDiv = styled.div`
-  display: flex;
-  font-weight: bold;
-  font-size: 120%;
-`;
-
-const SizeDiv = styled.div`
-  display: flex;
-  font-size: 90%
-`;
-
-const Energy = props => {
-    const {energy} = props;
-    return <EnergyDiv>
-               {prettyEnergy(energy)}
-           </EnergyDiv>;
-};
-
-const EnergyDiv = styled(ColEnergy)`
-  display: flex;
-  text-align: right;
-`;
-
-const Price = props => {
-    const {price} = props;
-    return <PriceDiv>
-               {prettyPrice(price)}
-           </PriceDiv>;
-};
-
-const PriceDiv = styled(ColPrice)`
-  display: flex;
-  text-align: right;
-`;
 
 // pixels per foot
 const scale = 3;
@@ -228,42 +123,21 @@ const Layout = props => {
 
     const units = entries.flatMap((entry, i) =>
         Array(entry.quantity).fill(0).map((each, j) =>
-            <LayoutUnitDiv style={{width: scale * entry.size[0],
-                                   height: scale * entry.size[1]}}
-                           key={`${i}-${j}`}>
-            </LayoutUnitDiv>));
+            <div class="layout-unit"
+                 style={{width: scale * entry.size[0],
+                         height: scale * entry.size[1]}}
+                 key={`${i}-${j}`}>
+            </div>));
 
-    return <LayoutDiv>
+    return <div className="layout">
                <p>
                    Layout:
                </p>
-               <LayoutFrame>
+               <div className="layout-frame"
+                    style={{width: 100 * scale}}>
                    {units}
-               </LayoutFrame>
-           </LayoutDiv>;
+               </div>
+           </div>;
 };
-
-const LayoutDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-`;
-
-const LayoutFrame = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-start;
-  align-content: flex-start;
-  margin: 10px;
-  border: solid 3px olive;
-  width: ${100 * scale}px;
-`;
-const LayoutUnitDiv = styled.div`
-  display: flex;
-  background-color: lightgray;
-  border: solid 1px darkgray;
-  border-radius: 2px;
-  margin: 2px;
-`;
 
 export {OrderSection};

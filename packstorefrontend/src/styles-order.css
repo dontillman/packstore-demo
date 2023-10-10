@@ -1,0 +1,98 @@
+/* styles for the packstore orders */
+
+div.order-section {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border: solid 1px olive;
+  border-radius: 3px;
+}
+
+div.order-form {
+  display: flex;
+  flex-direction: column;
+  font-family: helvetica;
+  font-size: 12px;
+}
+
+
+div.order-form-heading {
+  display: flex;
+  font-weight: bold;
+  color: #666666;
+  text-align: center;
+  border-bottom: solid 1px gray;
+}
+
+div.col-quant {
+  width: 60px;
+}
+
+div.col-model {
+  width: 150px;
+}
+
+div.col-energy {
+  width: 100px;
+}
+
+div.col-price {
+  width: 120px;
+}
+
+div.order-entry {
+  display: flex;
+  align-items: flex-start;
+  margin: 5px 0;
+}
+
+div.model-size {
+  display: flex;
+  flex-direction: column;
+  width: 120px;
+  padding-left: 30px;
+}
+
+div.model {
+  font-weight: bold;
+  font-size: 120%;
+}
+  
+div.size {
+  font-size: 90%
+}
+
+div.energy {
+  text-align: right;
+  width: 80px;
+  padding-right: 20px;
+}
+
+div.price {
+  text-align: right;
+  width: 100px;
+  padding-right: 20px
+}
+
+div.layout {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+div.layout-frame {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  margin: 10px;
+  border: solid 3px olive;
+}
+
+div.layout-unit {
+  display: flex;
+  background-color: lightgray;
+  border: solid 1px darkgray;
+  border-radius: 2px;
+  margin: 2px;
+}
